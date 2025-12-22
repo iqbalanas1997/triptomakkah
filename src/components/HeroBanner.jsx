@@ -68,11 +68,11 @@ const HeroBanner = () => {
               className="flex flex-col sm:flex-row gap-4 mb-8"
             >
               <a
-                href="tel:+442037276363"
+                href="tel:+923232202360"
                 className="flex items-center justify-center lg:justify-start space-x-2 text-gray-700 hover:text-primary-600 transition-colors font-medium"
               >
                 <Phone size={20} />
-                <span>+44 203 7276363</span>
+                <span>+92 323 2202360</span>
               </a>
               <a
                 href="mailto:info@triptomakkah.co.uk"

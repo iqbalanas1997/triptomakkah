@@ -244,7 +244,7 @@ Copyright © 2024 Trip To Makkah. All rights reserved.
 
 ## 📞 Contact
 
-- **Phone**: +44 0203 727 6364
+- **Phone**: +92 323 2202360
 - **Email**: info@triptomakkah.co.uk
 - **Address**: 344-348 High Road, Ilford, Essex IG1 1QP, United Kingdom
 

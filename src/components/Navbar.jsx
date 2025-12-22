@@ -140,11 +140,11 @@ const Navbar = () => {
               <div className="mt-auto pt-8 border-t border-gray-200">
                 <div className="space-y-3">
                   <a
-                    href="tel:+442037276364"
+                    href="tel:+923232202360"
                     className="flex items-center space-x-2 text-gray-700 hover:text-primary-600"
                   >
                     <Phone size={18} />
-                    <span className="text-sm">+44 203 727 6364</span>
+                    <span className="text-sm">+92 323 2202360</span>
                   </a>
                   <a
                     href="mailto:info@triptomakkah.co.uk"

@@ -33,14 +33,14 @@ function App() {
       {/* Floating Contact Buttons */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
         <a
-          href="tel:+442037276364"
+          href="tel:+923232202360"
           className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
           aria-label="Call us"
         >
           <Phone size={24} />
         </a>
         <a
-          href="https://wa.me/442037276364"
+          href="https://wa.me/923232202360"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"

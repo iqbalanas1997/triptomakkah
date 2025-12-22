@@ -191,7 +191,7 @@ ${values.message}
 
             <div className="space-y-6">
               <a
-                href="tel:+442037276364"
+                href="tel:+923232202360"
                 className="flex items-start space-x-4 p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow group"
               >
                 <div className="bg-primary-100 p-3 rounded-lg group-hover:bg-primary-200 transition-colors">
@@ -199,7 +199,7 @@ ${values.message}
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
-                  <p className="text-gray-600">+44 0203 727 6364</p>
+                  <p className="text-gray-600">+92 323 2202360</p>
                 </div>
               </a>
 
