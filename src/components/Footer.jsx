@@ -36,8 +36,11 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <div className="text-3xl">🕋</div>
-              <h3 className="text-2xl font-bold text-white">Trip To Makkah</h3>
+              <h3 className="text-2xl font-bold text-white">Trip to Makkah</h3>
             </div>
+            <p className="text-gray-400 mb-2 text-sm">
+              A trade name of Super Destinations Ltd
+            </p>
             <p className="text-gray-400 mb-4 text-sm">
               Booking, reviews and advices on hotels, resorts, flights, vacation rentals, travel packages, and lots more!
             </p>
@@ -104,7 +107,7 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <MapPin size={18} className="text-primary-400 mt-1 flex-shrink-0" />
                 <span className="text-sm text-gray-400">
-                  344-348 High Road, Ilford<br />
+                  <strong>Trip to makkah</strong>, registered at 344-348 High Road, Ilford<br />
                   Essex IG1 1QP, United Kingdom
                 </span>
               </li>
@@ -114,7 +117,7 @@ const Footer = () => {
                   className="flex items-center space-x-3 text-gray-400 hover:text-primary-400 transition-colors"
                 >
                   <Phone size={18} className="text-primary-400" />
-                  <span className="text-sm">+44 0203 727 6364</span>
+                  <span className="text-sm"><strong>0203 727 6364</strong></span>
                 </a>
               </li>
               <li>
@@ -153,7 +156,10 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © {currentYear} All copyrights reserved. Trip to Makkah – Hajj & Umrah Travel UK
+            Copyright@{currentYear}, All Rights Reserved
+          </p>
+          <p className="text-gray-400 text-sm mt-2">
+            Trip to Makkah – Hajj & Umrah Travel UK
           </p>
           <div className="flex justify-center space-x-6 mt-4 text-sm">
             <button className="text-gray-400 hover:text-primary-400 transition-colors">

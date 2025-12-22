@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import logoImage from '../data/images/logo-invert-2.png';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,8 +42,12 @@ const Navbar = () => {
         <div className="container-custom">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <div className="text-2xl">🕋</div>
+            <div className="flex items-center space-x-3">
+              <img 
+                src={logoImage} 
+                alt="Trip To Makkah Logo" 
+                className="h-10 w-auto"
+              />
               <div>
                 <h1 className="text-xl md:text-2xl font-bold text-primary-600">
                   Trip To Makkah
@@ -96,9 +101,16 @@ const Navbar = () => {
           >
             <div className="flex flex-col h-full p-6">
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-xl font-bold text-primary-600">
-                  Trip To Makkah
-                </h2>
+                <div className="flex items-center space-x-2">
+                  <img 
+                    src={logoImage} 
+                    alt="Trip To Makkah Logo" 
+                    className="h-8 w-auto"
+                  />
+                  <h2 className="text-xl font-bold text-primary-600">
+                    Trip To Makkah
+                  </h2>
+                </div>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-2"

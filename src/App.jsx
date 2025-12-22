@@ -6,6 +6,7 @@ import WhyChooseUs from './components/WhyChooseUs';
 import AboutSection from './components/AboutSection';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
+import WhatsAppPopup from './components/WhatsAppPopup';
 import { Phone, MessageCircle } from 'lucide-react';
 
 function App() {
@@ -25,6 +26,9 @@ function App() {
         <ContactForm />
       </main>
       <Footer />
+
+      {/* WhatsApp Popup */}
+      <WhatsAppPopup />
 
       {/* Floating Contact Buttons */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">

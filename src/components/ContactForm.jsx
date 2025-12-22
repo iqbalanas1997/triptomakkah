@@ -17,7 +17,13 @@ const ContactForm = () => {
       .required('Email is required'),
     phone: Yup.string()
       .min(10, 'Phone number must be at least 10 digits')
-      .required('Phone number is required'),
+      .required('Contact number is required'),
+    departureDates: Yup.string()
+      .required('Departure dates are required'),
+    numberOfNights: Yup.string()
+      .required('Number of nights is required'),
+    interestedIn: Yup.string()
+      .required('Please select Hajj or Umrah'),
     message: Yup.string()
       .min(10, 'Message must be at least 10 characters')
       .required('Message is required'),
@@ -28,6 +34,9 @@ const ContactForm = () => {
       name: '',
       email: '',
       phone: '',
+      departureDates: '',
+      numberOfNights: '',
+      interestedIn: '',
       message: '',
     },
     validationSchema,
@@ -57,10 +66,13 @@ const ContactForm = () => {
           className="text-center mb-12"
         >
           <h2 className="heading-secondary mb-4">
-            Contact <span className="text-gradient">Us</span>
+            Contact <span className="text-gradient">Us Now</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We have the most experienced and knowledgeable travel professionals. Contact us for customized packages.
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            We have the most experienced and knowledgeable travel professionals in the TRIP TO MAKKAH LTD. we provide the most comprehensive an most reliable services to our clients including tour guides and administrators, religious guides, meet and assist guides, transportation services, hotel and meal services and many more.
+          </p>
+          <p className="text-lg text-primary-600 font-bold mt-4">
+            <strong>CONTACT US FOR CUSTOMIZED PACKAGES</strong>
           </p>
         </motion.div>
 
@@ -136,11 +148,11 @@ const ContactForm = () => {
             transition={{ duration: 0.6 }}
           >
             <div className="card p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Inquiry Form</h3>
               <form onSubmit={formik.handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Full Name *
+                    Name *
                   </label>
                   <input
                     type="text"
@@ -154,7 +166,7 @@ const ContactForm = () => {
                         ? 'border-red-500'
                         : 'border-gray-300'
                     }`}
-                    placeholder="Enter your full name"
+                    placeholder="Your name"
                   />
                   {formik.touched.name && formik.errors.name && (
                     <p className="mt-1 text-sm text-red-600">{formik.errors.name}</p>
@@ -163,7 +175,7 @@ const ContactForm = () => {
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Email Address *
+                    Your email *
                   </label>
                   <input
                     type="email"
@@ -177,7 +189,7 @@ const ContactForm = () => {
                         ? 'border-red-500'
                         : 'border-gray-300'
                     }`}
-                    placeholder="Enter your email"
+                    placeholder="Your email"
                   />
                   {formik.touched.email && formik.errors.email && (
                     <p className="mt-1 text-sm text-red-600">{formik.errors.email}</p>
@@ -186,7 +198,7 @@ const ContactForm = () => {
 
                 <div>
                   <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Phone Number *
+                    Contact Number *
                   </label>
                   <input
                     type="tel"
@@ -200,7 +212,7 @@ const ContactForm = () => {
                         ? 'border-red-500'
                         : 'border-gray-300'
                     }`}
-                    placeholder="Enter your phone number"
+                    placeholder="Your contact number"
                   />
                   {formik.touched.phone && formik.errors.phone && (
                     <p className="mt-1 text-sm text-red-600">{formik.errors.phone}</p>
@@ -208,8 +220,89 @@ const ContactForm = () => {
                 </div>
 
                 <div>
+                  <label htmlFor="departureDates" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Departure Dates *
+                  </label>
+                  <input
+                    type="text"
+                    id="departureDates"
+                    name="departureDates"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.departureDates}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+                      formik.touched.departureDates && formik.errors.departureDates
+                        ? 'border-red-500'
+                        : 'border-gray-300'
+                    }`}
+                    placeholder="Preferred departure dates"
+                  />
+                  {formik.touched.departureDates && formik.errors.departureDates && (
+                    <p className="mt-1 text-sm text-red-600">{formik.errors.departureDates}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label htmlFor="numberOfNights" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Number of Nights *
+                  </label>
+                  <input
+                    type="text"
+                    id="numberOfNights"
+                    name="numberOfNights"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.numberOfNights}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+                      formik.touched.numberOfNights && formik.errors.numberOfNights
+                        ? 'border-red-500'
+                        : 'border-gray-300'
+                    }`}
+                    placeholder="Number of nights"
+                  />
+                  {formik.touched.numberOfNights && formik.errors.numberOfNights && (
+                    <p className="mt-1 text-sm text-red-600">{formik.errors.numberOfNights}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">
+                    Interested in: *
+                  </label>
+                  <div className="flex gap-6">
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="interestedIn"
+                        value="Hajj"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        checked={formik.values.interestedIn === 'Hajj'}
+                        className="w-4 h-4 text-primary-600 focus:ring-primary-500"
+                      />
+                      <span className="text-gray-700">Hajj</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="interestedIn"
+                        value="Umrah"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        checked={formik.values.interestedIn === 'Umrah'}
+                        className="w-4 h-4 text-primary-600 focus:ring-primary-500"
+                      />
+                      <span className="text-gray-700">Umrah</span>
+                    </label>
+                  </div>
+                  {formik.touched.interestedIn && formik.errors.interestedIn && (
+                    <p className="mt-1 text-sm text-red-600">{formik.errors.interestedIn}</p>
+                  )}
+                </div>
+
+                <div>
                   <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Message *
+                    Your Message: *
                   </label>
                   <textarea
                     id="message"
@@ -223,7 +316,7 @@ const ContactForm = () => {
                         ? 'border-red-500'
                         : 'border-gray-300'
                     }`}
-                    placeholder="Tell us about your travel plans..."
+                    placeholder="Your message"
                   />
                   {formik.touched.message && formik.errors.message && (
                     <p className="mt-1 text-sm text-red-600">{formik.errors.message}</p>

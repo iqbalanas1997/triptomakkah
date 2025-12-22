@@ -31,8 +31,8 @@ const PackagesList = () => {
             Our Best <span className="text-gradient">Packages</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We ensure Best Hotels at Makkah and Madinah, Airline booking, Transportation etc.
-            <br />
+            We ensure Best Hotels at Makkah and Madinah<br />
+            Airline booking, Transportation etc.<br />
             <strong>Best Umrah Packages 2024 from UK</strong>
           </p>
         </motion.div>

@@ -57,6 +57,17 @@ const AboutSection = () => {
                 Experience a spiritual journey like no other with Trip To Makkah.
               </p>
             </div>
+            
+            {/* Long Contact Paragraph */}
+            <div className="mt-8 p-6 bg-primary-50 rounded-xl border-l-4 border-primary-600">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Contact us now</h3>
+              <p className="text-gray-700 leading-relaxed">
+                We have the most experienced and knowledgeable travel professionals in the TRIP TO MAKKAH LTD. we provide the most comprehensive an most reliable services to our clients including tour guides and administrators, religious guides, meet and assist guides, transportation services, hotel and meal services and many more.
+              </p>
+              <p className="text-primary-600 font-bold mt-4 text-lg">
+                <strong>CONTACT US FOR CUSTOMIZED PACKAGES</strong>
+              </p>
+            </div>
           </motion.div>
 
           <motion.div

@@ -1,25 +1,27 @@
 import { motion } from 'framer-motion';
-import { Award, Star, Shield, TrendingUp, Users, Clock } from 'lucide-react';
+import { Users, Clock } from 'lucide-react';
+import highStandardImage from '../data/images/high standard.jpg';
+import bestInTownImage from '../data/images/best in town.jpeg';
+import secureTravelImage from '../data/images/secure travel.jpg';
+import servicesImage from '../data/images/services.jpg';
+import hajjActivitiesImage from '../data/images/hajj activities.jpg';
 
 const WhyChooseUs = () => {
   const features = [
     {
-      icon: Award,
+      image: highStandardImage,
       title: 'High Standards',
       description: 'We provide high standard services of Hotels, Transportation and Flights',
-      color: 'bg-blue-100 text-blue-700',
     },
     {
-      icon: Star,
+      image: bestInTownImage,
       title: 'Best in Town',
       description: 'We offer best complete packages of Hajj and Umrah from UK',
-      color: 'bg-gold-400/20 text-gold-600',
     },
     {
-      icon: Shield,
+      image: secureTravelImage,
       title: 'Secure Travel',
       description: 'Authorized and approved from IATA, ATOL and Ministry of Hajj & Umrah KSA',
-      color: 'bg-green-100 text-green-700',
     },
   ];
 
@@ -62,16 +64,75 @@ const WhyChooseUs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card p-8 text-center"
+              className="card overflow-hidden text-center hover:shadow-xl transition-shadow duration-300"
             >
-              <div className={`${feature.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                <feature.icon size={32} />
+              <div className="relative h-48 overflow-hidden">
+                <img 
+                  src={feature.image} 
+                  alt={feature.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Services Image */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <div className="rounded-2xl overflow-hidden shadow-2xl">
+            <img 
+              src={servicesImage} 
+              alt="Trip To Makkah Services" 
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </motion.div>
+
+        {/* Hajj Activities Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <div className="bg-gradient-to-r from-primary-600 to-primary-800 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="grid md:grid-cols-2 gap-0">
+              <div className="relative h-64 md:h-auto">
+                <img 
+                  src={hajjActivitiesImage} 
+                  alt="Hajj Activities"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-8 md:p-12 text-white flex flex-col justify-center">
+                <h3 className="text-2xl md:text-3xl font-bold mb-4">Hajj Activities</h3>
+                <p className="text-lg mb-6 opacity-90">
+                  Plan your next journey with us….
+                </p>
+                <button
+                  onClick={() => {
+                    const element = document.querySelector('#packages');
+                    if (element) element.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 w-fit"
+                >
+                  View Deals
+                </button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Stats Section */}
         <motion.div

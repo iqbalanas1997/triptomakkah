@@ -9,7 +9,7 @@ export const packages = [
     hotelMakkahStars: 5,
     hotelMadinah: "Dar Al Eiman",
     hotelMadinahStars: 5,
-    inclusions: ["E-Visa", "Flights", "Transport", "Hotels", "Ziyarat"],
+    inclusions: ["E-Visa", "Flights", "Transport", "Hotels", "Ziayarat"],
     featured: true,
     type: "premium"
   },
@@ -38,7 +38,7 @@ export const packages = [
     hotelMakkahStars: 3,
     hotelMadinah: "Economy hotel",
     hotelMadinahStars: 3,
-    inclusions: ["E-Visa", "Flights", "Transport", "Hotels", "Ziyarat"],
+    inclusions: ["E-Visa", "Flights", "Transport", "Hotels", "Ziayarat"],
     type: "economy"
   },
   {
@@ -66,7 +66,7 @@ export const packages = [
     hotelMakkahStars: 5,
     hotelMadinah: "any hotel",
     hotelMadinahStars: 5,
-    inclusions: ["E-Visa", "Flights", "Transport", "Hotels", "Ziyarat"],
+    inclusions: ["E-Visa", "Flights", "Transport", "Hotels", "Ziayarat"],
     featured: true,
     type: "premium",
     custom: true
