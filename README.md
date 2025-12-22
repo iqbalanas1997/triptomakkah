@@ -205,6 +205,39 @@ The site includes:
 - Focus states on all interactive elements
 - Screen reader friendly
 
+## 🚀 Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. **Via Vercel Dashboard** (Easiest):
+   - Go to [vercel.com](https://vercel.com)
+   - Sign in with GitHub
+   - Click "Add New Project"
+   - Import `iqbalanas1997/triptomakkah`
+   - Vercel will auto-detect Vite settings
+   - Click "Deploy"
+
+2. **Via Vercel CLI**:
+   ```bash
+   npm i -g vercel
+   vercel login
+   vercel --prod
+   ```
+
+3. **Environment Variables** (for EmailJS):
+   - Add in Vercel Dashboard → Project Settings → Environment Variables:
+     - `VITE_EMAILJS_SERVICE_ID`
+     - `VITE_EMAILJS_TEMPLATE_ID`
+     - `VITE_EMAILJS_PUBLIC_KEY`
+
+📖 **Full deployment guide**: See [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+### Build Output
+
+- **Output Directory**: `dist`
+- **Build Command**: `npm run build`
+- **Framework**: Vite
+
 ## 📄 License
 
 Copyright © 2024 Trip To Makkah. All rights reserved.
