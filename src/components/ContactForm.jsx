@@ -2,11 +2,21 @@ import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { motion } from 'framer-motion';
-import { Send, Phone, Mail, MapPin, CheckCircle, X } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, CheckCircle, X, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const ContactForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isError, setIsError] = useState(false);
+
+  // EmailJS Configuration
+  // Get these from: https://dashboard.emailjs.com/admin
+  // You can set them as environment variables or replace directly here
+  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
+  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -40,18 +50,105 @@ const ContactForm = () => {
       message: '',
     },
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      // Here you would typically send the data to your backend API
-      console.log('Form submitted:', values);
-      setIsSubmitted(true);
-      setShowModal(true);
-      resetForm();
-      
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setShowModal(false);
-      }, 5000);
+    onSubmit: async (values, { resetForm, setSubmitting }) => {
+      try {
+        setErrorMessage('');
+        setIsError(false);
+        
+        // Validate EmailJS configuration
+        if (
+          EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID' ||
+          EMAILJS_TEMPLATE_ID === 'YOUR_TEMPLATE_ID' ||
+          EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY' ||
+          !EMAILJS_SERVICE_ID ||
+          !EMAILJS_TEMPLATE_ID ||
+          !EMAILJS_PUBLIC_KEY
+        ) {
+          throw new Error(
+            'EmailJS is not configured. Please set up your EmailJS credentials. See EMAILJS_SETUP.md for instructions.'
+          );
+        }
+        
+        // Prepare email template parameters
+        const templateParams = {
+          to_email: 'iqbalanas99.ia@gmail.com',
+          from_name: values.name,
+          from_email: values.email,
+          contact_number: values.phone,
+          departure_dates: values.departureDates,
+          number_of_nights: values.numberOfNights,
+          interested_in: values.interestedIn,
+          message: values.message,
+          // Formatted email body
+          email_body: `
+Name: ${values.name}
+Email: ${values.email}
+Contact Number: ${values.phone}
+Departure Dates: ${values.departureDates}
+Number of Nights: ${values.numberOfNights}
+Interested In: ${values.interestedIn}
+Message:
+${values.message}
+          `.trim(),
+        };
+
+        // Send email via EmailJS
+        const response = await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          templateParams,
+          EMAILJS_PUBLIC_KEY
+        );
+
+        // Check if email was sent successfully
+        if (response.status === 200) {
+          // Success
+          setIsSubmitted(true);
+          setIsError(false);
+          setShowModal(true);
+          resetForm();
+          setSubmitting(false);
+          
+          // Hide success message after 5 seconds
+          setTimeout(() => {
+            setIsSubmitted(false);
+            setShowModal(false);
+          }, 5000);
+        } else {
+          throw new Error('Email service returned an error. Please try again.');
+        }
+      } catch (error) {
+        console.error('EmailJS Error Details:', {
+          error,
+          message: error.message,
+          text: error.text,
+          status: error.status,
+          serviceId: EMAILJS_SERVICE_ID,
+          templateId: EMAILJS_TEMPLATE_ID,
+          hasPublicKey: !!EMAILJS_PUBLIC_KEY,
+        });
+        
+        setIsError(true);
+        
+        // Provide specific error messages
+        let userMessage = 'Failed to send message. Please try again or contact us directly.';
+        
+        if (error.message && error.message.includes('EmailJS is not configured')) {
+          userMessage = 'EmailJS is not configured. Please set up your EmailJS credentials. See EMAILJS_SETUP.md for instructions.';
+        } else if (error.text) {
+          userMessage = `Error: ${error.text}. Please check your EmailJS configuration.`;
+        } else if (error.message) {
+          userMessage = `Error: ${error.message}`;
+        } else if (error.status) {
+          userMessage = `Email service error (Status: ${error.status}). Please check your EmailJS configuration.`;
+        }
+        
+        setErrorMessage(userMessage);
+        setSubmitting(false);
+        
+        // Show error modal
+        setShowModal(true);
+      }
     },
   });
 
@@ -135,8 +232,17 @@ const ContactForm = () => {
             </div>
 
             {/* Google Map Placeholder */}
-            <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-              <p className="text-gray-500">Google Map Embed</p>
+            <div className="bg-gray-200 rounded-lg h-64 overflow-hidden">
+              <iframe
+                src="https://www.google.com/maps?q=344-348+High+Road,+Ilford,+Essex+IG1+1QP,+United+Kingdom&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Trip To Makkah Location"
+              />
             </div>
           </motion.div>
 
@@ -354,19 +460,43 @@ const ContactForm = () => {
             className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl"
           >
             <div className="text-center">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="text-green-600" size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
-              <p className="text-gray-600 mb-6">
-                Thank you for contacting us. We'll get back to you soon.
-              </p>
-              <button
-                onClick={() => setShowModal(false)}
-                className="btn-primary"
-              >
-                Close
-              </button>
+              {isError ? (
+                <>
+                  <div className="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <AlertCircle className="text-red-600" size={32} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Error</h3>
+                  <p className="text-gray-600 mb-6">
+                    {errorMessage || 'Failed to send message. Please try again or contact us directly.'}
+                  </p>
+                  <button
+                    onClick={() => {
+                      setShowModal(false);
+                      setIsError(false);
+                      setErrorMessage('');
+                    }}
+                    className="btn-primary"
+                  >
+                    Close
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="text-green-600" size={32} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+                  <p className="text-gray-600 mb-6">
+                    Thank you for contacting Trip To Makkah. We will get back to you shortly.
+                  </p>
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="btn-primary"
+                  >
+                    Close
+                  </button>
+                </>
+              )}
             </div>
           </motion.div>
         </motion.div>
