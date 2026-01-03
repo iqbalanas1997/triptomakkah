@@ -1,20 +1,67 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import PackageCard from './PackageCard';
-import { packages } from '../data/packages';
 
 const PackagesList = () => {
   const [filter, setFilter] = useState('all');
+  const [packages, setPackages] = useState([]);
+  const [allPackages, setAllPackages] = useState([]);
+  const [fiveStarPackages, setFiveStarPackages] = useState([]);
+  const [economyPackages, setEconomyPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredPackages = filter === 'all' 
-    ? packages 
-    : packages.filter(pkg => pkg.type === filter);
+  // Fetch packages from JSON file
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const response = await fetch('/data/packages.json');
+        if (!response.ok) {
+          throw new Error('Failed to fetch packages');
+        }
+        const data = await response.json();
+        
+        setAllPackages(data.allPackages || []);
+        setFiveStarPackages(data.fiveStarPackages || []);
+        setEconomyPackages(data.economyPackages || []);
+        setPackages(data.allPackages || []);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching packages:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchPackages();
+  }, []);
+
+  // Update filtered packages when filter changes
+  useEffect(() => {
+    if (filter === 'all') {
+      setPackages(allPackages);
+    } else if (filter === 'premium') {
+      setPackages(fiveStarPackages);
+    } else if (filter === 'economy') {
+      setPackages(economyPackages);
+    }
+  }, [filter, allPackages, fiveStarPackages, economyPackages]);
 
   const filterButtons = [
     { id: 'all', label: 'All Packages' },
     { id: 'premium', label: '5 Star Packages' },
     { id: 'economy', label: 'Economy Packages' },
   ];
+
+  if (loading) {
+    return (
+      <section id="packages" className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="text-center">
+            <p className="text-gray-600">Loading packages...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="packages" className="section-padding bg-gray-50">
@@ -62,7 +109,7 @@ const PackagesList = () => {
 
         {/* Packages Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredPackages.map((pkg, index) => (
+          {packages.map((pkg, index) => (
             <PackageCard key={pkg.id} package={pkg} index={index} />
           ))}
         </div>
@@ -97,4 +144,3 @@ const PackagesList = () => {
 };
 
 export default PackagesList;
-

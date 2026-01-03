@@ -28,12 +28,10 @@ const ContactForm = () => {
     phone: Yup.string()
       .min(10, 'Phone number must be at least 10 digits')
       .required('Contact number is required'),
-    departureDates: Yup.string()
-      .required('Departure dates are required'),
-    numberOfNights: Yup.string()
-      .required('Number of nights is required'),
-    interestedIn: Yup.string()
-      .required('Please select Hajj or Umrah'),
+    preferredDate: Yup.string()
+      .required('Preferred date is required'),
+    package: Yup.string()
+      .required('Please select a package'),
     message: Yup.string()
       .min(10, 'Message must be at least 10 characters')
       .required('Message is required'),
@@ -44,9 +42,8 @@ const ContactForm = () => {
       name: '',
       email: '',
       phone: '',
-      departureDates: '',
-      numberOfNights: '',
-      interestedIn: '',
+      preferredDate: '',
+      package: '',
       message: '',
     },
     validationSchema,
@@ -75,18 +72,16 @@ const ContactForm = () => {
           from_name: values.name,
           from_email: values.email,
           contact_number: values.phone,
-          departure_dates: values.departureDates,
-          number_of_nights: values.numberOfNights,
-          interested_in: values.interestedIn,
+          preferred_date: values.preferredDate,
+          package: values.package,
           message: values.message,
           // Formatted email body
           email_body: `
 Name: ${values.name}
 Email: ${values.email}
 Contact Number: ${values.phone}
-Departure Dates: ${values.departureDates}
-Number of Nights: ${values.numberOfNights}
-Interested In: ${values.interestedIn}
+Preferred Date: ${values.preferredDate}
+Package: ${values.package}
 Message:
 ${values.message}
           `.trim(),
@@ -326,83 +321,50 @@ ${values.message}
                 </div>
 
                 <div>
-                  <label htmlFor="departureDates" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Departure Dates *
+                  <label htmlFor="preferredDate" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Preferred Date *
                   </label>
                   <input
-                    type="text"
-                    id="departureDates"
-                    name="departureDates"
+                    type="date"
+                    id="preferredDate"
+                    name="preferredDate"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.departureDates}
+                    value={formik.values.preferredDate}
+                    min={new Date().toISOString().split('T')[0]}
                     className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
-                      formik.touched.departureDates && formik.errors.departureDates
+                      formik.touched.preferredDate && formik.errors.preferredDate
                         ? 'border-red-500'
                         : 'border-gray-300'
                     }`}
-                    placeholder="Preferred departure dates"
                   />
-                  {formik.touched.departureDates && formik.errors.departureDates && (
-                    <p className="mt-1 text-sm text-red-600">{formik.errors.departureDates}</p>
+                  {formik.touched.preferredDate && formik.errors.preferredDate && (
+                    <p className="mt-1 text-sm text-red-600">{formik.errors.preferredDate}</p>
                   )}
                 </div>
 
                 <div>
-                  <label htmlFor="numberOfNights" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Number of Nights *
+                  <label htmlFor="package" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Package *
                   </label>
-                  <input
-                    type="text"
-                    id="numberOfNights"
-                    name="numberOfNights"
+                  <select
+                    id="package"
+                    name="package"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.numberOfNights}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
-                      formik.touched.numberOfNights && formik.errors.numberOfNights
+                    value={formik.values.package}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white ${
+                      formik.touched.package && formik.errors.package
                         ? 'border-red-500'
                         : 'border-gray-300'
                     }`}
-                    placeholder="Number of nights"
-                  />
-                  {formik.touched.numberOfNights && formik.errors.numberOfNights && (
-                    <p className="mt-1 text-sm text-red-600">{formik.errors.numberOfNights}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Interested in: *
-                  </label>
-                  <div className="flex gap-6">
-                    <label className="flex items-center space-x-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="interestedIn"
-                        value="Hajj"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        checked={formik.values.interestedIn === 'Hajj'}
-                        className="w-4 h-4 text-primary-600 focus:ring-primary-500"
-                      />
-                      <span className="text-gray-700">Hajj</span>
-                    </label>
-                    <label className="flex items-center space-x-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="interestedIn"
-                        value="Umrah"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        checked={formik.values.interestedIn === 'Umrah'}
-                        className="w-4 h-4 text-primary-600 focus:ring-primary-500"
-                      />
-                      <span className="text-gray-700">Umrah</span>
-                    </label>
-                  </div>
-                  {formik.touched.interestedIn && formik.errors.interestedIn && (
-                    <p className="mt-1 text-sm text-red-600">{formik.errors.interestedIn}</p>
+                  >
+                    <option value="">Select a package</option>
+                    <option value="Umrah">Umrah</option>
+                    <option value="Hajj">Hajj</option>
+                  </select>
+                  {formik.touched.package && formik.errors.package && (
+                    <p className="mt-1 text-sm text-red-600">{formik.errors.package}</p>
                   )}
                 </div>
 
