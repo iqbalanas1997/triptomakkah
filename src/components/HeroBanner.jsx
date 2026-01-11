@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Phone, Mail } from 'lucide-react';
 import welcomeImage from '../data/images/welcome.jpeg';
 import bannerImage from '../data/images/banner.jpg';
+import welcomeBannerImage from '../data/images/welcome banner.jpg';
 import iataLogo from '../data/images/png-clipart-international-air-transport-association-logo-airline-air-cargo-international-association-of-travel-agents-network-air-shipping-blue-text-removebg-preview.png';
 
 const HeroBanner = () => {
@@ -17,8 +18,8 @@ const HeroBanner = () => {
       {/* Background Image */}
       <div className="absolute inset-0 opacity-10">
         <img 
-          src={bannerImage} 
-          alt="Background" 
+          src={welcomeBannerImage} 
+          alt="Welcome Banner Background" 
           className="w-full h-full object-cover"
         />
       </div>
