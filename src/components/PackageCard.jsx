@@ -20,9 +20,28 @@ const PackageCard = ({ package: pkg, index }) => {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className={`card ${pkg.featured ? 'ring-2 ring-primary-500 ring-offset-2' : ''}`}
     >
-      {pkg.featured && (
+      {pkg.badge && (
+        <div className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-2 px-4 text-center font-semibold text-sm">
+          ⭐ {pkg.badge}
+        </div>
+      )}
+      {pkg.featured && !pkg.badge && (
         <div className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-2 px-4 text-center font-semibold text-sm">
           ⭐ Featured Package
+        </div>
+      )}
+
+      {/* Package Image */}
+      {pkg.imageUrl && (
+        <div className="relative h-48 w-full overflow-hidden">
+          <img 
+            src={pkg.imageUrl} 
+            alt={pkg.title}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
+          />
         </div>
       )}
 

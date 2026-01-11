@@ -113,20 +113,20 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="tel:+923232202360"
+                  href="tel:+442037276364"
                   className="flex items-center space-x-3 text-gray-400 hover:text-primary-400 transition-colors"
                 >
                   <Phone size={18} className="text-primary-400" />
-                  <span className="text-sm"><strong>+92 323 2202360</strong></span>
+                  <span className="text-sm"><strong>0203 727 6364</strong></span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@triptomakkah.co.uk"
+                  href="mailto:info@triptomakkah.com"
                   className="flex items-center space-x-3 text-gray-400 hover:text-primary-400 transition-colors"
                 >
                   <Mail size={18} className="text-primary-400" />
-                  <span className="text-sm">info@triptomakkah.co.uk</span>
+                  <span className="text-sm">info@triptomakkah.com</span>
                 </a>
               </li>
             </ul>

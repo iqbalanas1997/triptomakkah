@@ -6,24 +6,60 @@ const PackagesList = () => {
   const [filter, setFilter] = useState('all');
   const [packages, setPackages] = useState([]);
   const [allPackages, setAllPackages] = useState([]);
+  const [threeStarPackages, setThreeStarPackages] = useState([]);
+  const [fourStarPackages, setFourStarPackages] = useState([]);
   const [fiveStarPackages, setFiveStarPackages] = useState([]);
-  const [economyPackages, setEconomyPackages] = useState([]);
+  const [ramadanPackages, setRamadanPackages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch packages from JSON file
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await fetch('/data/packages.json');
+        const response = await fetch('/data/umrahPackages.json');
         if (!response.ok) {
           throw new Error('Failed to fetch packages');
         }
         const data = await response.json();
         
-        setAllPackages(data.allPackages || []);
-        setFiveStarPackages(data.fiveStarPackages || []);
-        setEconomyPackages(data.economyPackages || []);
-        setPackages(data.allPackages || []);
+        // Transform data to match existing PackageCard structure
+        const transformPackage = (pkg) => ({
+          id: pkg.packageId,
+          title: pkg.packageTitle,
+          price: pkg.price,
+          nights: typeof pkg.nightsMakkah === 'number' && typeof pkg.nightsMadinah === 'number' 
+            ? pkg.nightsMakkah + pkg.nightsMadinah 
+            : pkg.duration,
+          departure: "as per your desire",
+          hotelMakkah: pkg.hotelMakkah,
+          hotelMakkahStars: pkg.category === '3-star' ? 3 : pkg.category === '4-star' ? 4 : pkg.category === '5-star' ? 5 : pkg.category === 'ramadan' ? (pkg.packageTitle.includes('3 Star') ? 3 : pkg.packageTitle.includes('4 Star') ? 4 : 5) : 4,
+          hotelMakkahNights: typeof pkg.nightsMakkah === 'number' ? pkg.nightsMakkah : undefined,
+          hotelMadinah: pkg.hotelMadinah,
+          hotelMadinahStars: pkg.category === '3-star' ? 3 : pkg.category === '4-star' ? 4 : pkg.category === '5-star' ? 5 : pkg.category === 'ramadan' ? (pkg.packageTitle.includes('3 Star') ? 3 : pkg.packageTitle.includes('4 Star') ? 4 : 5) : 5,
+          hotelMadinahNights: typeof pkg.nightsMadinah === 'number' ? pkg.nightsMadinah : undefined,
+          inclusions: pkg.inclusions || [],
+          featured: pkg.featured || false,
+          type: pkg.category === '3-star' ? 'economy' : pkg.category === '5-star' ? 'premium' : pkg.category === 'ramadan' ? 'ramadan' : 'economy',
+          custom: pkg.custom || false,
+          badge: pkg.badge,
+          transportType: pkg.transportType,
+          duration: pkg.duration,
+          imageUrl: pkg.imageUrl
+        });
+
+        const threeStar = (data.threeStarPackages || []).map(transformPackage);
+        const fourStar = (data.fourStarPackages || []).map(transformPackage);
+        const fiveStar = (data.fiveStarPackages || []).map(transformPackage);
+        const ramadan = (data.ramadanPackages || []).map(transformPackage);
+        
+        const all = [...threeStar, ...fourStar, ...fiveStar, ...ramadan];
+        
+        setThreeStarPackages(threeStar);
+        setFourStarPackages(fourStar);
+        setFiveStarPackages(fiveStar);
+        setRamadanPackages(ramadan);
+        setAllPackages(all);
+        setPackages(all);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching packages:', error);
@@ -38,17 +74,23 @@ const PackagesList = () => {
   useEffect(() => {
     if (filter === 'all') {
       setPackages(allPackages);
-    } else if (filter === 'premium') {
+    } else if (filter === '3star') {
+      setPackages(threeStarPackages);
+    } else if (filter === '4star') {
+      setPackages(fourStarPackages);
+    } else if (filter === '5star') {
       setPackages(fiveStarPackages);
-    } else if (filter === 'economy') {
-      setPackages(economyPackages);
+    } else if (filter === 'ramadan') {
+      setPackages(ramadanPackages);
     }
-  }, [filter, allPackages, fiveStarPackages, economyPackages]);
+  }, [filter, allPackages, threeStarPackages, fourStarPackages, fiveStarPackages, ramadanPackages]);
 
   const filterButtons = [
     { id: 'all', label: 'All Packages' },
-    { id: 'premium', label: '5 Star Packages' },
-    { id: 'economy', label: 'Economy Packages' },
+    { id: '3star', label: '3 Star Packages' },
+    { id: '4star', label: '4 Star Packages' },
+    { id: '5star', label: '5 Star Packages' },
+    { id: 'ramadan', label: 'Ramadan Packages' },
   ];
 
   if (loading) {
