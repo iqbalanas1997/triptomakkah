@@ -15,7 +15,7 @@ const WhatsAppPopup = () => {
   }, []);
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/442037276364', '_blank', 'noopener,noreferrer');
+    window.open('https://wa.me/447946890999', '_blank', 'noopener,noreferrer');
     setIsOpen(false);
   };
 
