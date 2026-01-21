@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { motion } from 'framer-motion';
 import { Send, Phone, Mail, MapPin, CheckCircle, X, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { usePackage } from '../context/PackageContext';
 
 const ContactForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isError, setIsError] = useState(false);
+  const { selectedPackage } = usePackage();
 
   // EmailJS Configuration
   // Get these from: https://dashboard.emailjs.com/admin
@@ -146,6 +148,15 @@ ${values.message}
       }
     },
   });
+
+  // Sync selected package from context to formik
+  useEffect(() => {
+    if (selectedPackage) {
+      formik.setFieldValue('package', selectedPackage);
+      formik.setFieldTouched('package', true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedPackage]);
 
   return (
     <section id="contact" className="section-padding bg-gray-50">
@@ -345,24 +356,22 @@ ${values.message}
 
                 <div>
                   <label htmlFor="package" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Package *
+                    Selected Package *
                   </label>
-                  <select
+                  <input
+                    type="text"
                     id="package"
                     name="package"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
                     value={formik.values.package}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white ${
+                    disabled
+                    readOnly
+                    required
+                    className={`w-full px-4 py-3 border rounded-lg bg-gray-100 cursor-not-allowed ${
                       formik.touched.package && formik.errors.package
                         ? 'border-red-500'
                         : 'border-gray-300'
                     }`}
-                  >
-                    <option value="">Select a package</option>
-                    <option value="Umrah">Umrah</option>
-                    <option value="Hajj">Hajj</option>
-                  </select>
+                  />
                   {formik.touched.package && formik.errors.package && (
                     <p className="mt-1 text-sm text-red-600">{formik.errors.package}</p>
                   )}

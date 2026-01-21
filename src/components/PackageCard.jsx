@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { Calendar, Moon, Star, MapPin, CheckCircle } from 'lucide-react';
+import { usePackage } from '../context/PackageContext';
 
 const PackageCard = ({ package: pkg, index }) => {
+  const { setSelectedPackage } = usePackage();
   const renderStars = (count) => {
     return Array.from({ length: 5 }).map((_, i) => (
       <Star
@@ -127,6 +129,7 @@ const PackageCard = ({ package: pkg, index }) => {
         {/* CTA Button */}
         <button
           onClick={() => {
+            setSelectedPackage(pkg.title);
             const element = document.querySelector('#contact');
             if (element) element.scrollIntoView({ behavior: 'smooth' });
           }}
