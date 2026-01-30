@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HeroBanner from './components/HeroBanner';
 import PackagesList from './components/PackagesList';
@@ -7,8 +8,48 @@ import AboutSection from './components/AboutSection';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import WhatsAppPopup from './components/WhatsAppPopup';
+import AdminDashboard from './components/admin/AdminDashboard';
 import { Phone, MessageCircle } from 'lucide-react';
 import { PackageProvider } from './context/PackageContext';
+
+function HomePage() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <HeroBanner />
+        <PackagesList />
+        <WhyChooseUs />
+        <AboutSection />
+        <ContactForm />
+      </main>
+      <Footer />
+
+      {/* WhatsApp Popup */}
+      <WhatsAppPopup />
+
+      {/* Floating Contact Buttons */}
+      <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
+        <a
+          href="tel:+447946890999"
+          className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+          aria-label="Call us"
+        >
+          <Phone size={24} />
+        </a>
+        <a
+          href="https://wa.me/447946890999"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+          aria-label="WhatsApp us"
+        >
+          <MessageCircle size={24} />
+        </a>
+      </div>
+    </>
+  );
+}
 
 function App() {
   useEffect(() => {
@@ -18,43 +59,16 @@ function App() {
 
   return (
     <PackageProvider>
-      <div className="App">
-        <Navbar />
-        <main>
-          <HeroBanner />
-          <PackagesList />
-          <WhyChooseUs />
-          <AboutSection />
-          <ContactForm />
-        </main>
-        <Footer />
-
-        {/* WhatsApp Popup */}
-        <WhatsAppPopup />
-
-        {/* Floating Contact Buttons */}
-        <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
-          <a
-            href="tel:+447946890999"
-            className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
-            aria-label="Call us"
-          >
-            <Phone size={24} />
-          </a>
-          <a
-            href="https://wa.me/447946890999"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
-            aria-label="WhatsApp us"
-          >
-            <MessageCircle size={24} />
-          </a>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/admin/packages" element={<AdminDashboard />} />
+          </Routes>
         </div>
-      </div>
+      </Router>
     </PackageProvider>
   );
 }
 
 export default App;
-

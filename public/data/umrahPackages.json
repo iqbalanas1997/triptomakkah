@@ -14,7 +14,11 @@
       "price": "£229",
       "currency": "GBP",
       "duration": "7 Days",
-      "inclusions": ["EVW Visa for Umrah", "3 Star Hotel", "Fully Insured Transfers"],
+      "inclusions": [
+        "EVW Visa for Umrah",
+        "3 Star Hotel",
+        "Fully Insured Transfers"
+      ],
       "exclusions": [],
       "badge": null,
       "imageUrl": "/images/HotelPictures/park-inn-by-radisson-makkah-aziziyah-3.jpg",
@@ -34,7 +38,10 @@
       "price": "£300",
       "currency": "GBP",
       "duration": "7 Days",
-      "inclusions": ["3 Star Hotels", "Fully Insured Transfers"],
+      "inclusions": [
+        "3 Star Hotels",
+        "Fully Insured Transfers"
+      ],
       "exclusions": [],
       "badge": null,
       "imageUrl": "/images/HotelPictures/voco-makkah-1.jpg",
@@ -56,7 +63,11 @@
       "price": "£274",
       "currency": "GBP",
       "duration": "10 Days",
-      "inclusions": ["EVW Visa for Umrah", "4 Star Hotel", "Fully Insured Transfers"],
+      "inclusions": [
+        "EVW Visa for Umrah",
+        "4 Star Hotel",
+        "Fully Insured Transfers"
+      ],
       "exclusions": [],
       "badge": null,
       "imageUrl": "/images/HotelPictures/Emaar-Al-Dhahabi-1.jpg",
@@ -76,7 +87,11 @@
       "price": "£299",
       "currency": "GBP",
       "duration": "7 Days",
-      "inclusions": ["EVW Visa for Umrah", "4 Star Hotel", "Fully Insured Transfers"],
+      "inclusions": [
+        "EVW Visa for Umrah",
+        "4 Star Hotel",
+        "Fully Insured Transfers"
+      ],
       "exclusions": [],
       "badge": null,
       "imageUrl": "/images/HotelPictures/Emaar-Grand-Hotel-1.jpg",
@@ -98,7 +113,11 @@
       "price": "£349",
       "currency": "GBP",
       "duration": "7 Days",
-      "inclusions": ["EVW Visa for Umrah", "5 Star Hotel", "Fully Insured Transfers"],
+      "inclusions": [
+        "EVW Visa for Umrah",
+        "5 Star Hotel",
+        "Fully Insured Transfers"
+      ],
       "exclusions": [],
       "badge": null,
       "imageUrl": "/images/HotelPictures/Makarem-Al-Hijra-Hotel-Makkah.jpg",
@@ -118,7 +137,11 @@
       "price": "£375",
       "currency": "GBP",
       "duration": "10 Days",
-      "inclusions": ["EVW Visa for Umrah", "5 Star Hotel", "Fully Insured Transfers"],
+      "inclusions": [
+        "EVW Visa for Umrah",
+        "5 Star Hotel",
+        "Fully Insured Transfers"
+      ],
       "exclusions": [],
       "badge": null,
       "imageUrl": "/images/HotelPictures/Makarem-Mina-Hotel-1-1.jpg",
@@ -140,7 +163,10 @@
       "price": "£324",
       "currency": "GBP",
       "duration": "7 Days",
-      "inclusions": ["3 Star Hotels", "Fully Insured Transfers"],
+      "inclusions": [
+        "3 Star Hotels",
+        "Fully Insured Transfers"
+      ],
       "exclusions": [],
       "badge": "Save your Booking with Minimum Deposit Today!",
       "imageUrl": "/images/HotelPictures/Emaar-Al-Khalil-hotel-3.jpg",
@@ -160,7 +186,10 @@
       "price": "£499",
       "currency": "GBP",
       "duration": "7 Days",
-      "inclusions": ["4 Star Hotels", "Fully Insured Transfers"],
+      "inclusions": [
+        "4 Star Hotels",
+        "Fully Insured Transfers"
+      ],
       "exclusions": [],
       "badge": "Save your Booking with Minimum Deposit Today!",
       "imageUrl": "/images/HotelPictures/Emaar-Al-Manar-1.jpg",
@@ -180,7 +209,10 @@
       "price": "£499",
       "currency": "GBP",
       "duration": "6 Days",
-      "inclusions": ["5 Star Hotels", "Fully Insured Transfers"],
+      "inclusions": [
+        "5 Star Hotels",
+        "Fully Insured Transfers"
+      ],
       "exclusions": [],
       "badge": "Save your Booking with Minimum Deposit Today!",
       "imageUrl": "/images/HotelPictures/Emaar-Al-Dhahabi-5.jpg",
