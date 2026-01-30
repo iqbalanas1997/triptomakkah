@@ -48,14 +48,7 @@ const Navbar = () => {
                 alt="Trip To Makkah Logo" 
                 className="h-10 w-auto"
               />
-              <div>
-                <h1 className="text-xl md:text-2xl font-bold text-primary-600">
-                  Trip To Makkah
-                </h1>
-                <p className="text-xs text-gray-600 hidden sm:block">
-                  Hajj & Umrah Travel
-                </p>
-              </div>
+            
             </div>
 
             {/* Desktop Navigation */}

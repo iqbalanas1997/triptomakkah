@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { motion } from 'framer-motion';
-import { Send, Phone, Mail, MapPin, CheckCircle, X, AlertCircle } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, CheckCircle, X, AlertCircle, MessageCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { usePackage } from '../context/PackageContext';
 
@@ -201,7 +201,7 @@ ${values.message}
                 className="flex items-start space-x-4 p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow group"
               >
                 <div className="bg-primary-100 p-3 rounded-lg group-hover:bg-primary-200 transition-colors">
-                  <Phone className="text-primary-600" size={24} />
+                  <MessageCircle className="text-primary-600" size={24} />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
