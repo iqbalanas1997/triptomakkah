@@ -73,28 +73,63 @@ const PackageForm = ({ package: pkg, onClose, onSuccess }) => {
 
     try {
       setUploading(true);
-      const formData = new FormData();
-      formData.append('image', file);
+      
+      // Convert file to base64 for Vercel serverless function compatibility
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        try {
+          const base64Image = reader.result;
+          
+          const response = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              image: base64Image,
+              filename: file.name,
+              fileType: file.type
+            })
+          });
 
-      const response = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: formData
-      });
+          // Check if response is JSON
+          const contentType = response.headers.get('content-type');
+          if (!contentType || !contentType.includes('application/json')) {
+            const text = await response.text();
+            console.error('Non-JSON response:', text.substring(0, 200));
+            throw new Error('Server returned invalid response. Please check API configuration.');
+          }
 
-      if (!response.ok) throw new Error('Upload failed');
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({ error: 'Upload failed' }));
+            throw new Error(errorData.error || 'Upload failed');
+          }
 
-      const data = await response.json();
-      setFormData(prev => ({ ...prev, imageUrl: data.imageUrl }));
-      setImagePreview(data.imageUrl);
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors.image;
-        return newErrors;
-      });
+          const data = await response.json();
+          setFormData(prev => ({ ...prev, imageUrl: data.imageUrl }));
+          setImagePreview(data.imageUrl);
+          setErrors(prev => {
+            const newErrors = { ...prev };
+            delete newErrors.image;
+            return newErrors;
+          });
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          setErrors(prev => ({ ...prev, image: error.message || 'Failed to upload image' }));
+        } finally {
+          setUploading(false);
+        }
+      };
+      
+      reader.onerror = () => {
+        setErrors(prev => ({ ...prev, image: 'Failed to read image file' }));
+        setUploading(false);
+      };
+      
+      reader.readAsDataURL(file);
     } catch (error) {
       console.error('Error uploading image:', error);
       setErrors(prev => ({ ...prev, image: 'Failed to upload image' }));
-    } finally {
       setUploading(false);
     }
   };
